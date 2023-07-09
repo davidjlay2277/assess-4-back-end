@@ -7,7 +7,7 @@ baseURL =   'http://localhost:4000/api/'
 
 const getCompliment = () => {
     // axios.get("http://localhost:4000/api/compliment/")
-    axios.get(baseURL + 'compliment/')
+    axios.get(`${baseURL}/compliment`)
         .then(res => {
             const data = res.data;
             alert(data);
