@@ -5,7 +5,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const { getCompliment } = require('./controller')
+const { getCompliment } = require('./controller.js')
 const { getFortune} = require('./controller')
 
 //ENDPOINTS
@@ -14,4 +14,4 @@ app.get("/api/fortune", getFortune);
 
 //LISTEN ON PORT
 const PORT = 4000;
-app.listen(4000, () => console.log(`Server running on 4000 ${PORT}`));
+app.listen(4000, () => console.log(`Server running on ${PORT}`));
