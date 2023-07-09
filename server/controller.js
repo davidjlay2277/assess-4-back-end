@@ -11,3 +11,15 @@ module.exports = {
     }
 
 }
+
+module.exports = {
+getFortune: (req, res) => {
+    const fortunes = ["A soft voice may be awfully persuasive.", "Adventure can be real happiness.", "A truly rich life contains love and art in abundance."];
+  
+    // choose random fortunw
+    let randomIndex = Math.floor(Math.random() * fortunes.length);
+    let randomFortune = fortunes[randomIndex];
+  
+    res.status(200).send(randomFortune);
+}
+}
