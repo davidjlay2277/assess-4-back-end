@@ -1,13 +1,110 @@
-button {
-    background-color: whitesmoke;
-    color: blue;
-    border: 2px solid blue;
-    font-size: 14px;
-    padding: 5px 10px 5px 10px; 
-    margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.14);
-    opacity: 0.7;
-  }
-  
+body {
+  background-color: lightgray;
+}
+h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+}
 
+h2 {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 2px;
+  color: darkblue;
+}
+
+.top {
+  background-color: black;
+  color: white;
+}
+
+.middle {
+  background-color: lightgray;
+  color: darkblue;
+}
+
+.bottom {
+  background-color: lightskyblue;
+}
+
+.fortune {
+  display: flex;	
+	justify-content: space-around;
+}
+
+.instructions {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  align-content: center;
+  padding-left: 15px;
+  padding-bottom: 5px;
+}
+
+.features {
+  display: flex;
+	flex-direction: row;
+  flex-wrap: wrap;
+	justify-content: center;
+	align-items: top;
+	align-content: center;
+  padding-top: 30px;
+}
+
+form {
+  display: flex;
+  color: blue;
+  font-size: 14px;
+  flex-direction: column;
+  padding: 5px 10px 5px 10px;
+  margin: 10px 10px 20px 10px;
+  border-radius: 5px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.14), 0 2px 4px 0 rgba(0, 0, 0, 0.14);
+}
+
+button {
+  background-color: whitesmoke;
+  color: blue;
+  border: 2px solid blue;
+  font-size: 14px;
+  padding: 5px 10px 5px 10px;
+  margin: 10px;
+  border-radius: 5px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.14), 0 2px 4px 0 rgba(0, 0, 0, 0.14);
+  opacity: 0.75;
+}
+
+#fortuneButton {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.my-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: lightcyan;
+  border: 1px solid black;
+  padding: 75px 10px 250px 10px;
+  margin: 20px;
+  font-style: italic;
+  opacity: 0.5;
+}
+
+.roulet {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  margin: 1px;
+}
+
+.box-item {
+  color: darkblue;
+  background-color: white;
+  margin: 10px;
+  border-radius: 5px;
+}

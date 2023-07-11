@@ -5,8 +5,106 @@
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body class="container">
-    <div><button id="complimentButton">Get a compliment</button></div>
-    <div><button id="fortuneButton">Get a fortune</button></div>
+    <div class = "top">
+      <h1>Create an Inspiriational Message</h1>
+    </div>
+    <div class = "middle">
+      <h2>Instructions</h2>
+    <section class="instructions" >
+        <div>Create
+          <ul>
+            <li>Select a compliment category to generate a compliment.</li>
+            <li>Let us know how you feel and we'll send a message.</li>
+            <li>Select the type of image you would like to see.</li>
+            <li>Test your luck by pulling in a fortune.</li>
+            <i>.</li>
+          </ul>
+        </div>
+        <div>Delete:
+          <ul>
+            <li>Double-click an item to remove it from your card.</li>
+            <li>Refresh the page to start over.</li>
+            <li>Looking for adventure? Try Web Page Roulet! </li>
+          </ul>
+        </div>
+    </section>
+  </div>
+    <div class = "bottom">
+      <section class="features" id= "features">
+        <div>
+          
+          <form id= "complimentForm" >
+            <label for="complimentInput">Choose your flavor of compliment</label>
+            <select id="complimentInput" name="complimentInput">
+              <option id="generic" value="generic">Generic</option>
+              <option id="coding" value="coding">Coding skills</option>
+              <option id="face" value="face">Facail features</option>
+              <option id ="condescending" value="condescending">Slightly condescending</option>
+            </select>
+            <br>
+            <button id="complimentButton">Get a compliment</button>
+          </form>   
+         
+        </div>
+          <div>   
+            <form id="messageType">
+             
+              How do you feel? Check all that apply
+              <div class="box-item">
+                <div class = "box-item">
+                  <input type="checkbox" id="opt1" name="ecstatic" value="1" />
+                  <label for="op1"> ecstatic</label>
+                </div>
+                <div class = "box-item">
+                  <input type="checkbox" id="op2" name="blue" value="2" />
+                  <label for="op2"> discouraged </label>
+                </div>
+                <div class = "box-item">
+                  <input type="checkbox" id="opt3" name="confused" value="4" />
+                  <label for="opt3"> confused </label>
+                </div>
+               
+              </div>
+              <button id = "messageButton">Get a message</button>
+            </form>
+          </div>
+           <div>
+            <form id="imageType">
+              <div>
+                <input type="radio" id="silly" name="silly" value="silly"
+                       checked>
+                <label for="huey">Silly</label>
+              </div>
+          
+              <div>
+                <input type="radio" id="dewey" name="drone" value="dewey">
+                <label for="dewey">Inspirational</label>
+              </div>
+          
+              <div>
+                <input type="radio" id="louie" name="drone" value="louie">
+                <label for="louie">Ominous</label>
+              </div>
+                <br/>
+                <button id="imgButton">Insert image</button>
+            </form>
+           </div>
+       
+       </section> 
+       <div class="fortune">
+        <button class = "fortune-btn" id="fortuneButton">Include a Fortune</button> 
+       </div>
+       <section class="my-card" id="my-card">
+       
+<section id="put-image">[image here]</section>
+<section id="put-fortune">[fortune here]</section>
+<section id="put-compliment">[compliment here]</section>
+<section id="put-message">[message here]</section>
+          </section>
+          <div class = "roulet">
+            <button id="rouletButton">Web Page Roulet</button>
+          </div>
+        </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="main.js"></script>
   </body>
