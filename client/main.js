@@ -25,7 +25,7 @@ const errFunction = (err) => {
   alert(err);
 };
 
-//GETTING A COMPLIMENT FROM SERVER. RESPONSE WILL RUN addCompliment FUNCTION
+/////////////////////// Request a COMPLIMENT with POST //////////////////////////
 const getCompliment = (e) => {
   e.preventDefault();
   let resObj = {
@@ -37,15 +37,15 @@ const getCompliment = (e) => {
     .catch(errFunction);
 };
 
-//THIS FUNCTION PASSES THROUGH THE REPONSE FROM GETCOMPLIMENT AND ADD AN HTML ELEMENT
 const addCompliment = (res) => {
   const createCompliment = document.createElement("div");
 
   createCompliment.innerHTML = `${res.data}`;
   complimentDiv.appendChild(createCompliment);
 };
+/////////////////////////////////////////////////////////////////////////////////
 
-///////////////////////// Request an Image with POST /////////////////////////////
+///////////////////////// Request an IMAGE with POST /////////////////////////////
 const getImg = (e) => {
   e.preventDefault();
   const resValue = [
@@ -62,29 +62,30 @@ const addImage = (res) => {
     background-repeat: no-repeat;
   }
   </style>`;
+  res;
 
   myCardDiv.appendChild(createBackground);
 };
 ///////////////////////////////////////////////////////////////////////////////////
 
-
-///////////////////////// Request a Message with PUT /////////////////////////////
+///////////////////////// Request a MESSAGE with PUT /////////////////////////////
 const getMessage = (e) => {
   e.preventDefault();
   console.log("hit on get message");
-  const messageInput = 
-    document.querySelectorAll('.checkboxes:checked');
-    ///Found this ... syntax on stack overflow. 
-  const sumInput = [[...messageInput].reduce((a, b) => a + +(b.value), 0)];
-  console.log(sumInput)
-  axios
-  .put(`${baseURL}/message`, sumInput)
-  .then(addMessage)
-  .catch(errFunction);
+  const messageInput = document.querySelectorAll(".checkboxes:checked");
+  ///Found this ... syntax on stack overflow.
+  const sumInput = [[...messageInput].reduce((a, b) => a + +b.value, 0)];
+  console.log(sumInput);
+  axios.put(`${baseURL}/message`, sumInput).then(addMessage).catch(errFunction);
 };
 const addMessage = (res) => {
-console.log(res);
-}
+  console.log(res);
+  const createMessage = document.createElement("div");
+
+  createMessage.innerHTML = `${res.data}`;
+  complimentDiv.appendChild(createMessage);
+};
+
 ///////////////////////////////////////////////////////////////////////////////////
 
 const getFortune = () => {

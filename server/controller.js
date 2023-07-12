@@ -56,16 +56,16 @@ module.exports = {
     const value = req.body[0];
     console.log(value);
 
-    const messages = [
+    let messagesArr = [
       {
         value: 1,
         responses: ["ecstatic"],
-        message: "carpe diem!",
+        message: "Carpe diem!",
       },
       {
         value: 2,
         responses: ["discouraged"],
-        message: "https://www.youtube.com/watch?v=7uUlOAyQsn4",
+        message: "This will help: https://www.youtube.com/watch?v=7uUlOAyQsn4",
       },
       {
         value: 3,
@@ -94,9 +94,11 @@ module.exports = {
       },
     ];
 
-    if (value === sum) {
-    }
+    const messageObj = messagesArr.find((e) => e.value === value);
+    console.log(messageObj);
+    let { message } = messageObj;
+    console.log(message);
 
-    res.status(200).send(value);
+    res.status(200).send(message);
   },
 };
