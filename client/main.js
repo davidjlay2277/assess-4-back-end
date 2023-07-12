@@ -3,24 +3,22 @@
 
 //BUTTONS
 const complimentBtn = document.getElementById("complimentButton");
-const fortuneBtn = document.getElementById("fortuneButton");
-const messageBtn = document.getElementById("messageButton");
+const getFortuneBtn = document.getElementById("fortuneButton");
+const submitFortuneBtn = document.getElementById("new-fortune-btn");
 
+const messageBtn = document.getElementById("messageButton");
 const imgBtn = document.getElementById("imgButton");
 const rouletBtn = document.getElementById("rouletButton");
 
 const complimentDiv = document.getElementById("compliment");
-
+const messageDiv = document.getElementById("message");
+const fortuneDiv = document.getElementById("fortune");
 /////The field on the web page where the message, fortune, URL and message are appended
 const myCardDiv = document.getElementById("my-card");
 
-//////not neededed??????????????
-const messageDiv = document.getElementById("message");
-const fortuneDiv = document.getElementById("fortune");
-
 baseURL = "http://localhost:4000/api";
 
-//default error
+//default error//
 const errFunction = (err) => {
   alert(err);
 };
@@ -28,6 +26,7 @@ const errFunction = (err) => {
 /////////////////////// Request a COMPLIMENT with POST //////////////////////////
 const getCompliment = (e) => {
   e.preventDefault();
+
   let resObj = {
     index: document.getElementById("complimentInput").value,
   };
@@ -71,36 +70,60 @@ const addImage = (res) => {
 ///////////////////////// Request a MESSAGE with PUT /////////////////////////////
 const getMessage = (e) => {
   e.preventDefault();
-  console.log("hit on get message");
   const messageInput = document.querySelectorAll(".checkboxes:checked");
   ///Found this ... syntax on stack overflow.
   const sumInput = [[...messageInput].reduce((a, b) => a + +b.value, 0)];
-  console.log(sumInput);
-  axios.put(`${baseURL}/message`, sumInput).then(addMessage).catch(errFunction);
+  axios
+    .post(`${baseURL}/message`, sumInput)
+    .then(addMessage)
+    .catch(errFunction);
 };
 const addMessage = (res) => {
-  console.log(res);
   const createMessage = document.createElement("div");
 
   createMessage.innerHTML = `${res.data}`;
-  complimentDiv.appendChild(createMessage);
+  messageDiv.appendChild(createMessage);
 };
 
-///////////////////////////////////////////////////////////////////////////////////
-
-const getFortune = () => {
-  axios.get(`${baseURL}/fortune`).then((res) => {
-    alert("hit on fortune button");
-  });
+///////////////////////// Request a random FORTUNE with GET ///////////////////
+const getFortune = (e) => {
+  e.preventDefault();
+  axios.get(`${baseURL}/fortune`).then(addFortune);
 };
 
-const roulet = () => {
+const addFortune = (res) => {
+  const createFortune = document.createElement("div");
+  createFortune.innerHTML = `${res.data}`;
+  complimentDiv.appendChild(createFortune);
+};
+//////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////// Add a new FORTUNE with PUT /////////////////////////////
+// NOTE NEEDED
+// let newFortuneText = ''
+// const InputHandler = (e) => {
+//   newFortuneText = e.target.value;
+//   console.log(newFortuneText)
+
+const putFortune = (e) => {
+  e.preventDefault();
+ let newFortune = document.getElementById('new-fortune-text').value
+    console.log(newFortune)
+  console.log("hit on button");
+
+  axios.put(`${baseURL}/fortune/new`);
+};
+////////////////////////////////////////////////////////////////////////////////
+
+const deleteRoulet = () => {
   alert("hit on roulet btn");
 };
 
-//EVENT LISTENERS - 5 Buttons
+//EVENT LISTENERS - 6 Buttons
 complimentBtn.addEventListener("click", getCompliment);
-fortuneBtn.addEventListener("click", getFortune);
+getFortuneBtn.addEventListener("click", getFortune);
+submitFortuneBtn.addEventListener("click", putFortune);
+// newFortuneInput.addEventListener("change", InputHandler);
 messageBtn.addEventListener("click", getMessage);
 imgBtn.addEventListener("click", getImg);
-rouletBtn.addEventListener("click", roulet);
+rouletBtn.addEventListener("click", deleteRoulet);

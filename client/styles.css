@@ -82,6 +82,18 @@ button {
   opacity: 0.75;
 }
 
+.submit {
+  background-color: whitesmoke;
+  color: blue;
+  border: 2px solid blue;
+  font-size: 14px;
+  padding: 5px 1px 5px 1px;
+  margin: 1px;
+  border-radius: 5px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.14), 0 2px 4px 0 rgba(0, 0, 0, 0.14);
+  opacity: 0.75;
+}
+
 #fortuneButton {
   padding-left: 100px;
   padding-right: 100px;

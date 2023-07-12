@@ -9,12 +9,14 @@ const { getCompliment } = require("./controller.js");
 const { getFortune } = require("./controller");
 const { getImg } = require("./controller");
 const { getMessage } = require("./controller");
+const {putFortune} = require("./controller");
 
 //ENDPOINTS
 app.post("/api/compliment", getCompliment);
 app.get("/api/fortune", getFortune);
 app.post("/api/img", getImg);
-app.put("/api/message", getMessage);
+app.post("/api/message", getMessage);
+app.put("/api/fortune/new",putFortune)
 
 //LISTEN ON PORT
 const PORT = 4000;

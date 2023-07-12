@@ -1,5 +1,13 @@
 //not currently connected to a database.
 
+const fortunes = [
+  "A System crash is immenenat, better push to GitHub",
+  "Your next assessment will score 100.",
+  "Callback Hell is a real place, but you can avoid it in this space",
+  "This greeting card will make no sense",
+  "Agents! They cut the hardline! ... either that, or cors is not installed",
+];
+
 module.exports = {
   getCompliment: (req, res) => {
     let { index } = req.body;
@@ -14,13 +22,13 @@ module.exports = {
     res.status(200).send(userCompliment);
   },
   getFortune: (req, res) => {
-    const fortunes = [
-      "A System crash is immenenat, better push to GitHub",
-      "Your next assessment will score 100.",
-      "Callback Hell is a real place, but you can avoid it in this space",
-      "This greeting card will make no sense",
-      "Agents! They cut the hardline! ... either that, or cors is not installed",
-    ];
+    // const fortunes = [
+    //   "A System crash is immenenat, better push to GitHub",
+    //   "Your next assessment will score 100.",
+    //   "Callback Hell is a real place, but you can avoid it in this space",
+    //   "This greeting card will make no sense",
+    //   "Agents! They cut the hardline! ... either that, or cors is not installed",
+    // ];
 
     // choose random fortune
     let randomIndex = Math.floor(Math.random() * fortunes.length);
@@ -65,7 +73,7 @@ module.exports = {
       {
         value: 2,
         responses: ["discouraged"],
-        message: "This will help: https://www.youtube.com/watch?v=7uUlOAyQsn4",
+        message: "This will help: <a href=https://www.youtube.com/watch?v=7uUlOAyQsn4> motivation </a>",
       },
       {
         value: 3,
@@ -80,7 +88,7 @@ module.exports = {
       {
         value: 5,
         responses: ["ecstatic", "confused"],
-        message: "The best invensiton are created on the brink of mania",
+        message: "The best inventions are created on the brink of mania",
       },
       {
         value: 6,
@@ -101,4 +109,11 @@ module.exports = {
 
     res.status(200).send(message);
   },
+
+  
+putFortune : (req,res) => {
+console.log('hit on putFortune in ctrl')
+}
+
+  
 };
