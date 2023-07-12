@@ -51,15 +51,17 @@ const getImg = (e) => {
   const resValue = [
     document.querySelector('input[name="imageType"]:checked').value,
   ];
-  axios
-  .post(`${baseURL}/img`, resValue)
-  .then(addImage)
-  .catch(errFunction);
+  axios.post(`${baseURL}/img`, resValue).then(addImage).catch(errFunction);
 };
 
 const addImage = (res) => {
-  const createMessage = document.createElement("div");
-  createMessage.innerHTML = `${res.data}`;
+  const createBackground = document.createElement("div");
+  createBackground.innerHTML = `<style>
+  #my-card {
+    background-image: url(${res.data});
+    background-repeat: no-repeat;
+  }
+  </style>`;
 
   myCardDiv.appendChild(createBackground);
 };
