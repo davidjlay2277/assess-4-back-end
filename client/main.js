@@ -1,46 +1,89 @@
 // const { getFortune } = require("../server/controller");
-console.log("front end running");
+// console.log("front end running");
 
-//buttons
+//BUTTONS
 const complimentBtn = document.getElementById("complimentButton");
-const complimentType = document.getElementById("complimentInput");
-
 const fortuneBtn = document.getElementById("fortuneButton");
-
 const messageBtn = document.getElementById("messageButton");
-const messageInput = document.getElementById("")
 
 const imgBtn = document.getElementById("imgButton");
 const rouletBtn = document.getElementById("rouletButton");
 
-console.log(rouletBtn);
+const complimentDiv = document.getElementById("compliment");
+
+/////The field on the web page where the message, fortune, URL and message are appended
+const myCardDiv = document.getElementById("my-card");
+
+//////not neededed??????????????
+const messageDiv = document.getElementById("message");
+const fortuneDiv = document.getElementById("fortune");
+
 baseURL = "http://localhost:4000/api";
 
-//function for compliment that runs when clicked
-// take in the form value, send to server on end point /compliment
+//default error
+const errFunction = (err) => {
+  alert(err);
+};
+
+//GETTING A COMPLIMENT FROM SERVER. RESPONSE WILL RUN addCompliment FUNCTION
 const getCompliment = (e) => {
   e.preventDefault();
-  const complimentType = document.getElementById('complimentInput')
-  axios.post(`${baseURL}/compliment`).then((res) => {
-    const data = res.data;
-   
-    console.log(complimentType.value)
-    alert("hit on complaint");
-  });
+  let resObj = {
+    index: document.getElementById("complimentInput").value,
+  };
+  axios
+    .post(`${baseURL}/compliment`, resObj)
+    .then(addCompliment)
+    .catch(errFunction);
 };
 
-const getMessage = (e) => {
-  e.preventDefault();
-  console.log("hit on message button");
-  alert("hit on message button");
+//THIS FUNCTION PASSES THROUGH THE REPONSE FROM GETCOMPLIMENT AND ADD AN HTML ELEMENT
+const addCompliment = (res) => {
+  const createCompliment = document.createElement("div");
+
+  createCompliment.innerHTML = `${res.data}`;
+  complimentDiv.appendChild(createCompliment);
 };
 
+///////////////////////// Request an Image with POST /////////////////////////////
 const getImg = (e) => {
   e.preventDefault();
-  console.log("hit on image button");
-  axios.post(`${baseURL}/img`).then((res) => {});
-  alert("hit on image button");
+  const resValue = [
+    document.querySelector('input[name="imageType"]:checked').value,
+  ];
+  axios
+  .post(`${baseURL}/img`, resValue)
+  .then(addImage)
+  .catch(errFunction);
 };
+
+const addImage = (res) => {
+  const createMessage = document.createElement("div");
+  createMessage.innerHTML = `${res.data}`;
+
+  myCardDiv.appendChild(createBackground);
+};
+///////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////// Request a Message with PUT /////////////////////////////
+const getMessage = (e) => {
+  e.preventDefault();
+  console.log("hit on get message");
+  const messageInput = 
+    document.querySelectorAll('.checkboxes:checked');
+    ///Found this ... syntax on stack overflow. 
+  const sumInput = [[...messageInput].reduce((a, b) => a + +(b.value), 0)];
+  console.log(sumInput)
+  axios
+  .put(`${baseURL}/message`, sumInput)
+  .then(addMessage)
+  .catch(errFunction);
+};
+const addMessage = (res) => {
+console.log(res);
+}
+///////////////////////////////////////////////////////////////////////////////////
 
 const getFortune = () => {
   axios.get(`${baseURL}/fortune`).then((res) => {
@@ -49,10 +92,10 @@ const getFortune = () => {
 };
 
 const roulet = () => {
-
   alert("hit on roulet btn");
 };
 
+//EVENT LISTENERS - 5 Buttons
 complimentBtn.addEventListener("click", getCompliment);
 fortuneBtn.addEventListener("click", getFortune);
 messageBtn.addEventListener("click", getMessage);

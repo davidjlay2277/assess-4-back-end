@@ -28,11 +28,14 @@ h2 {
 
 .bottom {
   background-color: lightskyblue;
+  display: flex;
+  flex-direction: row;
+  width: 1600px;
 }
 
 .fortune {
-  display: flex;	
-	justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 .instructions {
@@ -47,23 +50,24 @@ h2 {
 
 .features {
   display: flex;
-	flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-	justify-content: center;
-	align-items: top;
-	align-content: center;
+  justify-content: center;
+  align-items: top;
+  align-content: center;
   padding-top: 30px;
 }
 
 form {
   display: flex;
   color: blue;
-  font-size: 14px;
+  font-size: 18px;
   flex-direction: column;
   padding: 5px 10px 5px 10px;
   margin: 10px 10px 20px 10px;
   border-radius: 5px;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.14), 0 2px 4px 0 rgba(0, 0, 0, 0.14);
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 button {
@@ -72,7 +76,7 @@ button {
   border: 2px solid blue;
   font-size: 14px;
   padding: 5px 10px 5px 10px;
-  margin: 10px;
+  margin: 5px;
   border-radius: 5px;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.14), 0 2px 4px 0 rgba(0, 0, 0, 0.14);
   opacity: 0.75;
@@ -81,18 +85,6 @@ button {
 #fortuneButton {
   padding-left: 100px;
   padding-right: 100px;
-}
-
-.my-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: lightcyan;
-  border: 1px solid black;
-  padding: 75px 10px 250px 10px;
-  margin: 20px;
-  font-style: italic;
-  opacity: 0.5;
 }
 
 .roulet {
@@ -107,4 +99,37 @@ button {
   background-color: white;
   margin: 10px;
   border-radius: 5px;
+}
+
+#my-card {
+ width: 900px;
+  background-color: lightcyan;
+  border: 1px solid black;
+  /* padding: 
+    5px 
+    1100px 
+    50px 
+    5px; */
+  margin: 
+    30px 
+    30px 
+    30px 
+    30px;
+  opacity: 0.45;
+
+}
+
+#compliment {
+   font-size: 20px;
+  color: red;
+}
+
+#message {
+    font-size: 20px;
+  color: green;
+}
+
+#fortune {
+    font-size: 20px;
+  color: gray;
 }
