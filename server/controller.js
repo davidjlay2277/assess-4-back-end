@@ -6,6 +6,7 @@ const fortunes = [
   "Callback Hell is a real place, but you can avoid it in this space",
   "This greeting card will make no sense",
   "Agents! They cut the hardline! ... either that, or cors is not installed",
+  "You will 'generate a fortune' by becomming a developer"
 ];
 
 module.exports = {
@@ -62,8 +63,6 @@ module.exports = {
 
   getMessage: (req, res) => {
     const value = req.body[0];
-    console.log(value);
-
     let messagesArr = [
       {
         value: 1,
@@ -73,7 +72,8 @@ module.exports = {
       {
         value: 2,
         responses: ["discouraged"],
-        message: "This will help: <a href=https://www.youtube.com/watch?v=7uUlOAyQsn4> motivation </a>",
+        message:
+          "This will help: <a href=https://www.youtube.com/watch?v=7uUlOAyQsn4> motivation </a>",
       },
       {
         value: 3,
@@ -83,7 +83,7 @@ module.exports = {
       {
         value: 4,
         responses: ["confused"],
-        message: "Well aren't you wonderfully curious",
+        message: "Curiosity is a wonderful thing",
       },
       {
         value: 5,
@@ -103,17 +103,15 @@ module.exports = {
     ];
 
     const messageObj = messagesArr.find((e) => e.value === value);
-    console.log(messageObj);
     let { message } = messageObj;
-    console.log(message);
 
     res.status(200).send(message);
   },
 
-  
-putFortune : (req,res) => {
-console.log('hit on putFortune in ctrl')
-}
-
-  
+  putFortune: (req, res) => {
+    fortunes.push(req.body[0])
+    let newFortuneAdded = fortunes[(fortunes.length-1)]
+console.log(fortunes[(fortunes.length-1)])
+    res.status(200).send(newFortuneAdded);
+  },
 };
