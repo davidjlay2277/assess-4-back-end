@@ -7,11 +7,6 @@ app.use(express.json());
 
 
 const { getCompliment,getFortune,getImg,getMessage,putFortune } = require("./controller.js");
-// const { getCompliment } = require("./controller.js");
-// const { getFortune } = require("./controller");
-// const { getImg } = require("./controller");
-// const { getMessage } = require("./controller");
-// const { putFortune } = require("./controller");
 
 //ENDPOINTS
 app.post("/api/compliment", getCompliment);

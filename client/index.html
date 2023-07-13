@@ -2,34 +2,26 @@
 <html>
   <head>
     <title>Back End Assessment dlay</title>
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="styles.css" rel="stylesheet" />
   </head>
-  <body class="container">
-    <div class = "top">
-      <h1>Create an Inspirational Message</h1>
+  <body class= "container">
+    <div class = "heading">
+      <h1>Create an Inspirational Card</h1>
     </div>
-    <div class = "middle">
-      <h2>Instructions</h2>
-    <div class="instructions" >
-        <div>Create
+        <div class= "feature-list" >
+        <h2>Features</h2>
           <ul>
             <li>Select a compliment category to generate a compliment.</li>
             <li>Let us know how you feel and we'll send a message.</li>
             <li>Select the type of image you would like to see.</li>
             <li>Test your luck by pulling in a fortune.</li>
-          </ul>
-        </div>
-        <div>Delete:
-          <ul>
             <li>Double-click an item to remove it from your card.</li>
             <li>Refresh the page to start over.</li>
             <li>Looking for adventure? Try Run Time Roulet! </li>
           </ul>
-        </div>
-      </div>
-  </div>
-    <div class = "bottom">
+              </div>
+     <div class = "card-container">
       <section class="features" id= "features">
         
         <div>
@@ -52,22 +44,7 @@
               <button id="imgButton">Get a background</button>
           </form>
          </div>
-        
-        <div>
-          
-          <form id= "complimentForm" >
-            <label for="complimentInput">Choose your flavor of compliment</label>
-            <select id="complimentInput" name="complimentInput">
-              <option id="generic" value="0">Generic</option>
-              <option id="coding" value="1">Coding skills</option>
-              <option id="face" value="2">Facail features</option>
-              <option id ="condescending" value="3">Slightly condescending</option>
-            </select>
-            <br>
-            <button id="complimentButton">Get a compliment</button>
-          </form>   
-         
-        </div>
+    
           <div>   
             <form id="messageType">
              
@@ -90,10 +67,29 @@
             </form>
           </div>
          
+    
+          <div>
+          
+            <form id= "complimentForm" >
+              <label for="complimentInput">Choose your flavor of compliment</label>
+              <select id="complimentInput" name="complimentInput">
+                <option id="generic" value="0">Generic</option>
+                <option id="coding" value="1">Coding skills</option>
+                <option id="face" value="2">Facail features</option>
+                <option id ="condescending" value="3">Slightly condescending</option>
+              </select>
+              <br>
+              <button id="complimentButton">Get a compliment</button>
+            </form>   
+           
+          </div>
+
           <div>
           <form id="new-fortune-form"> <label>Increase the possibilites</label>
             <input id="new-fortune-text" type="text" placeholder="Type a new fortune"/>
-            <button id="new-fortune-btn"> Add New Entry</button>  </form> 
+            <button id="new-fortune-btn"> Add New Entry</button>  
+            <button id="remove-fortune-btn">Remove last Entry</button>
+          </form> 
         </div>
           
           <div class="fortune">
@@ -102,20 +98,23 @@
           </div>
        </section> 
        
-       <div id="my-card">
-       </br>
-            <div id="message"></div>
-       </br>
-            <div id="compliment"></div>
-       </br>
-            <div id="fortune"></div> <html>
-              
-            </html>
-          </div>
-        
-        </div>
-        <div class = "roulet">
-          <button id="rouletButton">Runtime Roulet</button>
+    <div id="my-card"> 
+      <div id="image-container">
+            <!-- Insert User selected image -->
+      </div>
+             <div class = "card-content"> 
+       <h2 class = "welcome"> Welcome</h2> 
+        </br>
+          <div id="message"> MESSAGE </div>
+        </br>
+          <div id="compliment">COMPLIMENT </div>
+        </br>
+          <div id="fortune"> FORTUNE </div>
+      </div>
+    </div>
+  </div>
+        <div class = "refresh">
+          <button id="refresh-btn">Refresh Card</button>
         </div>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

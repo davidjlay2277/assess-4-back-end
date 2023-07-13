@@ -5,14 +5,15 @@ const submitFortuneBtn = document.getElementById("new-fortune-btn");
 
 const messageBtn = document.getElementById("messageButton");
 const imgBtn = document.getElementById("imgButton");
-const rouletBtn = document.getElementById("rouletButton");
+const refreshBtn = document.getElementById("refresh-btn");
 
 let complimentDiv = document.getElementById("compliment");
 let messageDiv = document.getElementById("message");
 let fortuneDiv = document.getElementById("fortune");
-let allHTML = document.querySelectorAll("body");
+
 /////The field on the web page where the message, fortune, URL and message are appended
 const myCardDiv = document.getElementById("my-card");
+const container = document.querySelector(".container");
 
 baseURL = "http://localhost:4000/api";
 
@@ -27,6 +28,8 @@ const getCompliment = (e) => {
   let resObj = {
     index: document.getElementById("complimentInput").value,
   };
+
+  console.log("hit on message");
   axios
     .post(`${baseURL}/compliment`, resObj)
     .then(addCompliment)
@@ -51,16 +54,12 @@ const getImg = (e) => {
 };
 
 const addImage = (res) => {
-  const createBackground = document.createElement("div");
-  createBackground.innerHTML = `<style>
-  #my-card {
-    background-image: url(${res.data});
-    background-repeat: no-repeat;
-  }
-  </style>`;
-  res;
+  const imageContainer = document.getElementById("image-container");
+  imageContainer.innerHTML = "";
 
-  myCardDiv.appendChild(createBackground);
+  const createBackground = document.createElement("div");
+  createBackground.innerHTML = `<img class = card-background src="${res.data}" alt ="inspiring"></img>`;
+  imageContainer.appendChild(createBackground);
 };
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -108,11 +107,22 @@ const putFortune = (e) => {
 ////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////// Delete the last fortune  /////////////////////////////
-const playRoulet = (e) => {
-  e.preventDefault();
-  alert("hit on roulet btn");
+const refreshCard = (e) => {
+  myCardDiv.innerHTML = 
+      `<div id="image-container">
+    </div>
+        <div class = "card-content"> 
+            <h2 class = "welcome"> Welcome </h2> 
+              </br>
+            <div id="message">  </div>
+               </br>
+            <div id="compliment"> </div>
+              </br>
+            <div id="fortune">  
+              </div>
+           </div>
+  `;
 };
-
 ////////////////////////////////////////////////////////////////////////////////
 
 //EVENT LISTENERS - 6 Buttons
@@ -122,4 +132,4 @@ submitFortuneBtn.addEventListener("click", putFortune);
 // newFortuneInput.addEventListener("change", InputHandler);
 messageBtn.addEventListener("click", getMessage);
 imgBtn.addEventListener("click", getImg);
-rouletBtn.addEventListener("click", playRoulet);
+refreshBtn.addEventListener("click", refreshCard);

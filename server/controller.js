@@ -6,7 +6,7 @@ const fortunes = [
   "Callback Hell is a real place, but you can avoid it in this space",
   "This greeting card will make no sense",
   "Agents! They cut the hardline! ... either that, or cors is not installed",
-  "You will 'generate a fortune' by becomming a developer"
+  "You will 'generate a fortune' by becoming a developer"
 ];
 
 module.exports = {
@@ -23,13 +23,6 @@ module.exports = {
     res.status(200).send(userCompliment);
   },
   getFortune: (req, res) => {
-    // const fortunes = [
-    //   "A System crash is immenenat, better push to GitHub",
-    //   "Your next assessment will score 100.",
-    //   "Callback Hell is a real place, but you can avoid it in this space",
-    //   "This greeting card will make no sense",
-    //   "Agents! They cut the hardline! ... either that, or cors is not installed",
-    // ];
 
     // choose random fortune
     let randomIndex = Math.floor(Math.random() * fortunes.length);
@@ -43,7 +36,7 @@ module.exports = {
       "https://media.npr.org/assets/img/2022/12/09/penguins-0e7c7c45a1188d5a2ccf897179945d927508b22c-s1300-c85.webp";
 
     const inspiringUrl =
-      "https://akm-img-a-in.tosshub.com/indiatoday/images/bodyeditor/201910/1_7-x588.jpg?PclOeJ.qXdBqTMtw3QqW5Kx7ZHQAuLqx";
+      "https://akm-img-a-in.tosshub.com/indiatoday/images/bodyeditor/201910/1_7-x588.jpg?PclOeJ.qXdBqTMtw3QqW5Kx7ZHQAuLqx/";
 
     const ominousUrl =
       "//www.photomural.com/media/catalog/product/cache/2/thumbnail/9df78eab33525d08d6e5fb8d27136e95/1/2/12405.jpg";
@@ -62,6 +55,7 @@ module.exports = {
   },
 
   getMessage: (req, res) => {
+  
     const value = req.body[0];
     let messagesArr = [
       {
