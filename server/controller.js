@@ -1,22 +1,17 @@
 //not currently connected to a database.
 
 let fortunes = [
-  "placeholder",
-  // ,
-  // "A System crash is imminent, better push to GitHub",
-  // "Your next assessment will score 100.",
-  // "Callback Hell is a real place, but I <strong>promise</strong> you a way out.",
-  // "This greeting card will make no sense.",
+  "A System crash is imminent, better push to GitHub",
+  "Your next assessment will score 100.",
+  "Callback Hell is a real place, but I <strong>promise</strong> you a way out.",
+  "This greeting card will make no sense.",
   "Agents! They cut the hardline! ... either that, or <strong>Cors</strong> is not installed.",
   "You will <strong>generate a fortune</strong> by becoming a developer.",
 ];
 const systemFortuneLength = fortunes.length;
-let fortuneHistoryArr = [];
+const fortuneHistoryArr = [];
 
 let fortuneQuantity = fortunes.length;
-let prevIndex;
-let prevPrevIndex;
-let newRandomIndex;
 
 let fortuneObj = {
   fortuneQuantity: 0,
@@ -38,58 +33,50 @@ module.exports = {
   },
 
   getFortune: (req, res) => {
-    // let newRandomIndex = Math.floor(Math.random() * fortunes.length);
- console.log('-------------BEGIN--------------')
-    let currentLength = fortuneHistoryArr.length 
-  console.log('the array length is:', currentLength)
-  console.log('the array:', fortuneHistoryArr,'\n')
+    
+    console.log("---------------begin-------------\n");
+    let currentLength = fortuneHistoryArr.length;
+    // let prevIndex
+    // let prevPrevIndex
+    console.log(currentLength);
 
     const returnUniqueFortune = (index) => {
       fortuneHistoryArr.push(index);
-      console.log('the unique index is', index)
-      console.log('reruning unique value on array: ',fortuneHistoryArr,'\n--------------------END RUN----------------\n');
-      let fortuneObj = {
-        fortuneQuantity: fortuneQuantity,
-        randomFortune: fortunes[index],
-      };
-      res.status(200).send(fortuneObj);
+      console.log(
+        "the index chosen is",
+        index,
+        "\nThe ending array is ",
+        fortuneHistoryArr,
+        "\n------------------end----------------"
+      );
+      let newFortune = fortunes[index];
+      res.status(200).send(newFortune);
     };
 
     const getRandom = () => {
+      console.log("startet up getRandom");
       let newRandomIndex = Math.floor(Math.random() * fortunes.length);
-      if (newRandomIndex === prevIndex || prevPrevIndex) {
-        getNewRandom();
-      } else {
+      let prevIndex;
+      let prevPrevIndex;
+      if (currentLength === 1) {
+        prevIndex = fortuneHistoryArr[0];
+        prevPrevIndex = fortuneHistoryArr[0];
+      }
+      if (currentLength > 1) {
+        prevIndex = fortuneHistoryArr[currentLength - 1];
+        prevPrevIndex = fortuneHistoryArr[currentLength - 2];
+      }
+      if (newRandomIndex != prevIndex && newRandomIndex != prevPrevIndex) {
         returnUniqueFortune(newRandomIndex);
-        return;
+      } else {
+        getRandom();
       }
     };
 
-    const getNewRandom = () => {
-      let newRandomIndex = Math.floor(Math.random() * fortunes.length);
-      if (newRandomIndex === prevIndex || prevPrevIndex) {
-        getRandom();
-      } else {  
-        returnUniqueFortune(newRandomIndex);
-        return;
-      }
-    };
-    if (fortuneHistoryArr.length === 0) {
+    if (currentLength === 0) {
       let newRandomIndex = Math.floor(Math.random() * fortunes.length);
       returnUniqueFortune(newRandomIndex);
-       } else if (fortuneHistoryArr.length === 1) {
-  
-      let prevIndex = fortuneHistoryArr[0];
-      let prevPrevIndex = fortuneHistoryArr[0];
-      console.log('TRUTH2:\n prev index is ',prevIndex)
-      console.log('prevPrev index is ',prevPrevIndex)
-      getRandom();
     } else {
-     
-      let prevIndex = fortuneHistoryArr[fortuneHistoryArr.length - 1];
-      let prevPrevIndex = fortuneHistoryArr[fortuneHistoryArr.length - 2];
-      console.log('Truth 3:\n prev index is ',prevIndex)
-      console.log('prevPrev index is ',prevPrevIndex, '\n\n')
       getRandom();
     }
   },
@@ -164,9 +151,13 @@ module.exports = {
   },
 
   putFortune: (req, res) => {
-    fortunes.push(req.body[0]);
-    let newFortuneAdded = fortunes[fortunes.length - 1];
-    res.status(200).send(newFortuneAdded);
+    if (req.body[0] = "") {
+      res.status(400).send("Text field was empty");
+    } else {
+      fortunes.push(req.body[0]);
+      let newFortuneAdded = fortunes[fortunes.length - 1];
+      res.status(200).send(newFortuneAdded);
+    }
   },
 
   deleteFortune: (req, res) => {

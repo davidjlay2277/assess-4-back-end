@@ -5,7 +5,7 @@ const imgBtn = document.getElementById("img-btn");
 const messageBtn = document.getElementById("message-btn");
 const complimentBtn = document.getElementById("compliment-btn");
   ///All Fortune buttons///
-const createFortuneBtn = document.getElementById("create-fortune-btn");
+const createFortuneBtn = document.getElementById("add-fortune-btn");
 const removeFortuneBtn = document.getElementById("remove-fortune-btn");
 const getfortuneBtn = document.getElementById("get-fortune-btn");
 
@@ -55,9 +55,10 @@ const addMessage = (res) => {
 };
 
 //////////////////Confirm the new fortune was added/////////////////////////////
-confirmFortuneAdded = (res) => {
+const confirmFortuneAdded = (res) => {
   fortunesPutByUser++;
-  console.log("fortunes put by user", fortunesPutByUser);
+  console.log(res.body)
+  console.log("fortune added by user:", fortunesPutByUser);
   if (fortunesPutByUser === 1) {
     alert(`Fortune submitted: "${res.data}"`);
   } else {
@@ -70,13 +71,14 @@ confirmFortuneAdded = (res) => {
 ////////////////////////// Add the random fortune to the card ////////////////////
 const addFortune = (res) => {
   // fortuneDiv.innerHTML = "";
+  console.log(fortuneRequests)
   fortuneRequests++;
-  let { randomFortune } = res.data;
-  if (fortuneRequests > 10) {
+  console.log(res.data)
+  if (fortuneRequests > 8) {
     alert("Slow down. Share with those less fortunate");
   } else {
     const createFortune = document.createElement("p");
-    createFortune.innerHTML = `${randomFortune}`;
+    createFortune.innerHTML = `${res.data}`;
     fortuneDiv.appendChild(createFortune);
   }
 };
@@ -84,6 +86,7 @@ const addFortune = (res) => {
 ///////////////// Confirm deletion of last entry  ////////////////////////////
 const confirmcCallback = () => {
   console.log("deletion successful");
+  alert('succesfully deleted previous entry')
 };
 
 const nothingToDelete = (e) => {
@@ -130,14 +133,16 @@ const getFortune = (e) => {
   axios.get(`${baseURL}/fortune`).then(addFortune).catch(errFunction);
 };
 
-///////////// Put th euser entered string on the server  //////////////////////
+///////////// Put th user entered string on the server  //////////////////////
 const putFortune = (e) => {
   e.preventDefault();
-  let newFortune = [document.getElementById("new-fortune-text").value];
-  axios.put(`${baseURL}/fortune`, newFortune).then(confirmFortuneAdded);
+  let newFortune = [document.getElementById("create-fortune").value];
+  console.log(newFortune)
+  if (newFortune[0] === '') {
+alert("Text field was empty")
+  }
+  else {axios.put(`${baseURL}/fortune`, newFortune).then(confirmFortuneAdded);}
 };
-
-
 ///////////////// Delete prev last fortune entry ////////////////////////////
 const removeFortune = (e) => {
   e.preventDefault();
@@ -146,9 +151,6 @@ const removeFortune = (e) => {
     .then(confirmcCallback)
     .catch(nothingToDelete);
 };
-
-
-
 // Refresh Button will reset HTML for each div in the card /////////////////////
 const refreshCard = (e) => {
   fortuneRequests = 0;
