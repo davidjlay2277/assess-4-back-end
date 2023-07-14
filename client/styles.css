@@ -96,9 +96,9 @@ button {
   opacity: 0.75;
 }
 
-#fortuneButton {
-  padding-left: 100px;
-  padding-right: 100px;
+#get-fortune-btn {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .refresh {
