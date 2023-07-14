@@ -1,13 +1,15 @@
 //not currently connected to a database.
 
-const fortunes = [
-  "A System crash is immenenat, better push to GitHub",
+let fortunes = [
+  "placeholder",
+  "A System crash is imminent, better push to GitHub",
   "Your next assessment will score 100.",
-  "Callback Hell is a real place, but you can avoid it in this space",
-  "This greeting card will make no sense",
-  "Agents! They cut the hardline! ... either that, or cors is not installed",
-  "You will 'generate a fortune' by becoming a developer"
+  "Callback Hell is a real place, but I <strong>promise</strong> you a way out.",
+  "This greeting card will make no sense.",
+  "Agents! They cut the hardline! ... either that, or <strong>Cors</strong> is not installed.",
+  "You will <strong>generate a fortune</strong> by becoming a developer.",
 ];
+const systemFortuneLength = fortunes.length;
 
 module.exports = {
   getCompliment: (req, res) => {
@@ -15,19 +17,41 @@ module.exports = {
 
     const allCompliments = [
       "Welcome to the internet, we're happy you're here!",
-      "Code so clean, I could eat browser cookies off of it",
-      "The symmetry of your face is uncanny",
+      "Code so clean, I could eat browser cookies off of it.",
+      "The symmetry of your face is uncanny.",
       "You click buttons like a pro!",
     ];
     let userCompliment = allCompliments[index];
     res.status(200).send(userCompliment);
   },
   getFortune: (req, res) => {
+  
+  getRandom()
 
-    // choose random fortune
+
+  const getRandom = (cb) {
     let randomIndex = Math.floor(Math.random() * fortunes.length);
-    let randomFortune = fortunes[randomIndex];
-    res.status(200).send(randomFortune);
+    let fortuneQuantity = fortunes.length;
+    return fortuneQuantity
+  }
+  const noRepeats = (index) =>
+  
+  {
+    if index === lastIndexValue {
+      retRandom()
+    }
+  }
+
+
+    fortuneObj = {
+      fortuneQuantity: fortuneQuantity,
+      randomFortune: fortunes[randomIndex],
+    };
+
+  
+    console.log(fortuneObj);
+
+    res.status(200).send(fortuneObj);
   },
 
   getImg: (req, res) => {
@@ -55,7 +79,6 @@ module.exports = {
   },
 
   getMessage: (req, res) => {
-  
     const value = req.body[0];
     let messagesArr = [
       {
@@ -95,17 +118,28 @@ module.exports = {
         message: "You have a lot going on. Take a long walk, that might help.",
       },
     ];
-
     const messageObj = messagesArr.find((e) => e.value === value);
     let { message } = messageObj;
-
     res.status(200).send(message);
   },
 
   putFortune: (req, res) => {
-    fortunes.push(req.body[0])
-    let newFortuneAdded = fortunes[(fortunes.length-1)]
-console.log(fortunes[(fortunes.length-1)])
+    fortunes.push(req.body[0]);
+    let newFortuneAdded = fortunes[fortunes.length - 1];
     res.status(200).send(newFortuneAdded);
+  },
+
+  deleteFortune: (req, res) => {
+    console.log('starting:' ,systemFortuneLength);
+    console.log('current:', fortunes.length);
+    if (fortunes.length > systemFortuneLength) {
+      fortunes.pop();
+      console.log("truth");
+      res.status(200).send('deleted');
+    } else {
+      console.log("false")
+      res.status(403).send('not deleted')
+    }
+    console.log('ending',fortunes.length)
   },
 };

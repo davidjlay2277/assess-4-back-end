@@ -1,16 +1,25 @@
+// const { default: axios } = require("axios");
+
 //BUTTONS
 const complimentBtn = document.getElementById("complimentButton");
+
 const getFortuneBtn = document.getElementById("fortuneButton");
 const submitFortuneBtn = document.getElementById("new-fortune-btn");
-
+const removeFortuneBtn = document.getElementById("remove-fortune-btn");
+console.log("remove fortune button");
 const messageBtn = document.getElementById("messageButton");
+
 const imgBtn = document.getElementById("imgButton");
+
 const refreshBtn = document.getElementById("refresh-btn");
 
 let complimentDiv = document.getElementById("compliment");
 let messageDiv = document.getElementById("message");
 let fortuneDiv = document.getElementById("fortune");
+let imageContainer = document.getElementById("image-container");
 
+let fortuneRequests = 0;
+let fortunesPutByUser = 0;
 /////The field on the web page where the message, fortune, URL and message are appended
 const myCardDiv = document.getElementById("my-card");
 const container = document.querySelector(".container");
@@ -54,7 +63,6 @@ const getImg = (e) => {
 };
 
 const addImage = (res) => {
-  const imageContainer = document.getElementById("image-container");
   imageContainer.innerHTML = "";
 
   const createBackground = document.createElement("div");
@@ -87,29 +95,61 @@ const getFortune = (e) => {
 };
 
 const addFortune = (res) => {
-  const createFortune = document.createElement("div");
-  createFortune.innerHTML = `${res.data}`;
-  complimentDiv.appendChild(createFortune);
+  // fortuneDiv.innerHTML = "";
+  fortuneRequests++;
+  let { randomFortune } = res.data;
+  if (fortuneRequests > 3) {
+    alert("Slow down. Share with those less fortunate");
+  } else {
+    const createFortune = document.createElement("p");
+    createFortune.innerHTML = `${randomFortune}`;
+    fortuneDiv.appendChild(createFortune);
+  }
 };
 //////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////// Add a new FORTUNE with PUT /////////////////////////////
 confirmFortuneAdded = (res) => {
-  console.log("New String:", res.data);
-  alert("New fortune added to server files");
+  fortunesPutByUser++;
+  console.log('fortunes put by user', fortunesPutByUser)
+  if (fortunesPutByUser === 1) {
+    alert(`Fortune submitted: "${res.data}"`);
+  } else {
+    alert(`Another success: "${res.data}" was submitted. Total submits = ${fortunesPutByUser}`);
+  }
+
 };
 
 const putFortune = (e) => {
   e.preventDefault();
   let newFortune = [document.getElementById("new-fortune-text").value];
-  axios.put(`${baseURL}/fortune/new`, newFortune).then(confirmFortuneAdded);
+  axios.put(`${baseURL}/fortune`, newFortune).then(confirmFortuneAdded);
 };
 ////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////// Delete the last fortune  /////////////////////////////
+const confirmcCallback = () => {
+  console.log("deletion successful");
+};
+
+const nothingToDelete = (e) => {
+  console.log("User cannot access system value for this endpoint");
+  alert('Nothing to delete')
+}
+
+const removeFortune = (e) => {
+  e.preventDefault();
+  axios
+  .delete(`${baseURL}/fortune`)
+  .then(confirmcCallback)
+  .catch(nothingToDelete);
+};
+
+/////////////////////////////////////////////////////////////
 const refreshCard = (e) => {
-  myCardDiv.innerHTML = 
-      `<div id="image-container">
+  fortuneRequests = 0;
+  fortunesPutByUser = 0;
+  myCardDiv.innerHTML = `<div id="image-container">
     </div>
         <div class = "card-content"> 
             <h2 class = "welcome"> Welcome </h2> 
@@ -129,7 +169,7 @@ const refreshCard = (e) => {
 complimentBtn.addEventListener("click", getCompliment);
 getFortuneBtn.addEventListener("click", getFortune);
 submitFortuneBtn.addEventListener("click", putFortune);
-// newFortuneInput.addEventListener("change", InputHandler);
+removeFortuneBtn.addEventListener("click", removeFortune);
 messageBtn.addEventListener("click", getMessage);
 imgBtn.addEventListener("click", getImg);
 refreshBtn.addEventListener("click", refreshCard);
