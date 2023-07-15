@@ -11,7 +11,6 @@ const getfortuneBtn = document.getElementById("get-fortune-btn");
 
 const refreshBtn = document.getElementById("refresh-btn");
 
-
 let complimentDiv = document.getElementById("compliment");
 let messageDiv = document.getElementById("message");
 let fortuneDiv = document.getElementById("fortune");
@@ -21,7 +20,6 @@ let fortunesPutByUser = 0;
 /////The field on the web page where the message, fortune, URL and message are appended
 const myCardDiv = document.getElementById("my-card");
 const container = document.querySelector(".container");
-
 const baseURL = "http://localhost:4000/api";
 
 //default error//
@@ -29,7 +27,7 @@ const errFunction = (err) => {
   alert(err);
 };
 
-/////////////////////// Add the IMAGE to the card //////////////////////////
+/////////////////////// Add the IMAGE to the card ////////////////////
 const addImage = (res) => {
   imageContainer.innerHTML = "";
 
@@ -38,7 +36,7 @@ const addImage = (res) => {
   imageContainer.appendChild(createBackground);
 };
 
-/////////////////////// Add the COMPLIMENT to the card //////////////////////////
+/////////////////// Add the COMPLIMENT to the card ///////////////////
 const addCompliment = (res) => {
   complimentDiv.innerHTML = "";
   const createCompliment = document.createElement("div");
@@ -46,7 +44,7 @@ const addCompliment = (res) => {
   complimentDiv.appendChild(createCompliment);
 };
 
-/////////////////////// Add the MESSAGE to the card //////////////////////////
+/////////////////// Add the MESSAGE to the card //////////////////////
 const addMessage = (res) => {
   messageDiv.innerHTML = "";
   const createMessage = document.createElement("div");
@@ -54,11 +52,11 @@ const addMessage = (res) => {
   messageDiv.appendChild(createMessage);
 };
 
-//////////////////Confirm the new fortune was added/////////////////////////////
+////////////////////Confirm the new fortune was added/////////////////
 const confirmFortuneAdded = (res) => {
   fortunesPutByUser++;
-  console.log(res.body)
-  console.log("fortune added by user:", fortunesPutByUser);
+  console.log('log "res.data" from confirmFortuneAdded ', res.data)
+ 23
   if (fortunesPutByUser === 1) {
     alert(`Fortune submitted: "${res.data}"`);
   } else {
@@ -68,13 +66,13 @@ const confirmFortuneAdded = (res) => {
   }
 };
 
-////////////////////////// Add the random fortune to the card ////////////////////
+/////////////////// Add the random fortune to the card //////////////
 const addFortune = (res) => {
   // fortuneDiv.innerHTML = "";
-  console.log(fortuneRequests)
+  console.log('fortuneRequests on line:', fortuneRequests)
   fortuneRequests++;
-  console.log(res.data)
-  if (fortuneRequests > 8) {
+  console.log('res.data on line 76: ', res.data)
+  if (fortuneRequests > 3) {
     alert("Slow down. Share with those less fortunate");
   } else {
     const createFortune = document.createElement("p");
@@ -83,7 +81,7 @@ const addFortune = (res) => {
   }
 };
 
-///////////////// Confirm deletion of last entry  ////////////////////////////
+//////////////////// Confirm deletion of last entry  ////////////////
 const confirmcCallback = () => {
   console.log("deletion successful");
   alert('succesfully deleted previous entry')
@@ -94,7 +92,7 @@ const nothingToDelete = (e) => {
   alert("Nothing to delete");
 };
 
-///////////////////////// Request an IMAGE with POST /////////////////////////////
+/////////////////////Request an IMAGE with POST ///////////////////
 const getImg = (e) => {
   e.preventDefault();
   const resValue = [
@@ -103,7 +101,7 @@ const getImg = (e) => {
   axios.post(`${baseURL}/img`, resValue).then(addImage).catch(errFunction);
 };
 
-///////////////////////// Request a MESSAGE with PUT /////////////////////////////
+///////////////////// Request a MESSAGE with PUT /////////////////
 const getMessage = (e) => {
   e.preventDefault();
   const messageInput = document.querySelectorAll(".checkboxes:checked");
@@ -114,7 +112,7 @@ const getMessage = (e) => {
     .catch(errFunction);
 };
 
-/////////////////////// Request a COMPLIMENT with GET //////////////////////////
+///////////////////// Request a COMPLIMENT with GET //////////////
 const getCompliment = (e) => {
   e.preventDefault();
   let resObj = {
@@ -127,23 +125,26 @@ const getCompliment = (e) => {
     .catch(errFunction);
 };
 
-////////////////////////Request a random FORTUNE with GET ///////////////////
+/////////////////////Request a random FORTUNE with GET ///////////
 const getFortune = (e) => {
   e.preventDefault();
   axios.get(`${baseURL}/fortune`).then(addFortune).catch(errFunction);
 };
 
-///////////// Put th user entered string on the server  //////////////////////
+//////////////////// Put the entered string on the server ////////
 const putFortune = (e) => {
   e.preventDefault();
   let newFortune = [document.getElementById("create-fortune").value];
-  console.log(newFortune)
-  if (newFortune[0] === '') {
-alert("Text field was empty")
+ //Request does not need ot be sent to be sent ot server when text field is null
+  if(newFortune[0] === ''){
+    console.log(' No request sent for a null entry')
+    return
+  } else {
+    axios.put(`${baseURL}/fortune`, newFortune).then(confirmFortuneAdded).catch(errFunction);
   }
-  else {axios.put(`${baseURL}/fortune`, newFortune).then(confirmFortuneAdded);}
+
 };
-///////////////// Delete prev last fortune entry ////////////////////////////
+///////////////// Delete prev last fortune entry /////////////////
 const removeFortune = (e) => {
   e.preventDefault();
   axios
@@ -151,7 +152,7 @@ const removeFortune = (e) => {
     .then(confirmcCallback)
     .catch(nothingToDelete);
 };
-// Refresh Button will reset HTML for each div in the card /////////////////////
+//////////// Refresh: reset HTML for each card div////////////////
 const refreshCard = (e) => {
   fortuneRequests = 0;
   fortunesPutByUser = 0;

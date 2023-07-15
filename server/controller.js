@@ -1,5 +1,4 @@
-//not currently connected to a database.
-
+//variable for fortune generator
 let fortunes = [
   "A System crash is imminent, better push to GitHub",
   "Your next assessment will score 100.",
@@ -10,77 +9,13 @@ let fortunes = [
 ];
 const systemFortuneLength = fortunes.length;
 const fortuneHistoryArr = [];
-
 let fortuneQuantity = fortunes.length;
-
 let fortuneObj = {
   fortuneQuantity: 0,
   randomFortune: "",
 };
 
 module.exports = {
-  getCompliment: (req, res) => {
-    let { index } = req.body;
-
-    const allCompliments = [
-      "Welcome to the internet, we're happy you're here!",
-      "Code so clean, I could eat browser cookies off of it.",
-      "The symmetry of your face is uncanny.",
-      "You click buttons like a pro!",
-    ];
-    let userCompliment = allCompliments[index];
-    res.status(200).send(userCompliment);
-  },
-
-  getFortune: (req, res) => {
-    
-    console.log("---------------begin-------------\n");
-    let currentLength = fortuneHistoryArr.length;
-    // let prevIndex
-    // let prevPrevIndex
-    console.log(currentLength);
-
-    const returnUniqueFortune = (index) => {
-      fortuneHistoryArr.push(index);
-      console.log(
-        "the index chosen is",
-        index,
-        "\nThe ending array is ",
-        fortuneHistoryArr,
-        "\n------------------end----------------"
-      );
-      let newFortune = fortunes[index];
-      res.status(200).send(newFortune);
-    };
-
-    const getRandom = () => {
-      console.log("startet up getRandom");
-      let newRandomIndex = Math.floor(Math.random() * fortunes.length);
-      let prevIndex;
-      let prevPrevIndex;
-      if (currentLength === 1) {
-        prevIndex = fortuneHistoryArr[0];
-        prevPrevIndex = fortuneHistoryArr[0];
-      }
-      if (currentLength > 1) {
-        prevIndex = fortuneHistoryArr[currentLength - 1];
-        prevPrevIndex = fortuneHistoryArr[currentLength - 2];
-      }
-      if (newRandomIndex != prevIndex && newRandomIndex != prevPrevIndex) {
-        returnUniqueFortune(newRandomIndex);
-      } else {
-        getRandom();
-      }
-    };
-
-    if (currentLength === 0) {
-      let newRandomIndex = Math.floor(Math.random() * fortunes.length);
-      returnUniqueFortune(newRandomIndex);
-    } else {
-      getRandom();
-    }
-  },
-
   getImg: (req, res) => {
     const input = req.body[0];
     const calmUrl =
@@ -104,7 +39,18 @@ module.exports = {
         .send(console.error("That is strange. Try the radio buttons again"));
     }
   },
+  getCompliment: (req, res) => {
+    let { index } = req.body;
 
+    const allCompliments = [
+      "Welcome to the internet, we're happy you're here!",
+      "Code so clean, I could eat browser cookies off of it.",
+      "The symmetry of your face is uncanny.",
+      "You click buttons like a pro!",
+    ];
+    let userCompliment = allCompliments[index];
+    res.status(200).send(userCompliment);
+  },
   getMessage: (req, res) => {
     const value = req.body[0];
     let messagesArr = [
@@ -149,17 +95,48 @@ module.exports = {
     let { message } = messageObj;
     res.status(200).send(message);
   },
+  getFortune: (req, res) => {
+    let currentLength = fortuneHistoryArr.length;
 
-  putFortune: (req, res) => {
-    if (req.body[0] = "") {
-      res.status(400).send("Text field was empty");
+    const returnUniqueFortune = (index) => {
+      fortuneHistoryArr.push(index);
+      let newFortune = fortunes[index];
+      res.status(200).send(newFortune);
+    };
+
+    const getRandom = () => {
+      console.log("startet up getRandom");
+      let newRandomIndex = Math.floor(Math.random() * fortunes.length);
+      let prevIndex;
+      let prevPrevIndex;
+      if (currentLength === 1) {
+        prevIndex = fortuneHistoryArr[0];
+        prevPrevIndex = fortuneHistoryArr[0];
+      }
+      if (currentLength > 1) {
+        prevIndex = fortuneHistoryArr[currentLength - 1];
+        prevPrevIndex = fortuneHistoryArr[currentLength - 2];
+      }
+      if (newRandomIndex != prevIndex && newRandomIndex != prevPrevIndex) {
+        returnUniqueFortune(newRandomIndex);
+      } else {
+        getRandom();
+      }
+    };
+
+    if (currentLength === 0) {
+      let newRandomIndex = Math.floor(Math.random() * fortunes.length);
+      returnUniqueFortune(newRandomIndex);
     } else {
-      fortunes.push(req.body[0]);
-      let newFortuneAdded = fortunes[fortunes.length - 1];
-      res.status(200).send(newFortuneAdded);
+      getRandom();
     }
   },
+  putFortune: (req, res) => {
+    fortunes.push(`${req.body[0]}`);
+      console.log('hit on putFortune on Ctrl. array is:', fortunes)
+     res.status(200).send(req.body[0]);
 
+  },
   deleteFortune: (req, res) => {
     console.log("starting:", systemFortuneLength);
     console.log("current:", fortunes.length);
